@@ -22,9 +22,9 @@ const AuthProvider = props => {
 
   const login = useCallback(async data => {
     try {
-      const { access_token, refresh_token, ...user } = await authLogin(data)
-      setAccessToken(access_token)
-      setRefreshToken(refresh_token)
+      const { token, ...user } = await authLogin(data)
+      setAccessToken(token)
+      setRefreshToken(token)
       reload()
 
       return { user }
