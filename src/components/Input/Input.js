@@ -5,11 +5,11 @@ import styled from 'styled-components'
 import Column from 'components/Column'
 import Text from 'components/Text'
 
-const InputComponent = ({ label, name, register, placeholder, error, disabled, type, ...props }) => (
+const InputComponent = ({ label, name, register, placeholder, error, disabled, type, value, ...props }) => (
   <Column {...props}>
     {label && <Text mb={5}>{label}</Text>}
     <Column height={60} position='relative'>
-      <Input name={name} ref={register} placeholder={placeholder} error={error} type={type} />
+      <Input name={name} ref={register} placeholder={placeholder} error={error} type={type} value={value} />
       <Text position='absolute' bottom={0} color='red' variant='small'>
         {error}
       </Text>

@@ -9,6 +9,7 @@
     "@naveteam/dispatcher": "^1.1.0",
     "@naveteam/pandora-frontend": "^1.0.1",
     "@sentry/browser": "5.14",
+    "@styled-icons/material-sharp": "^10.18.0",
     "@styled-system/prop-types": "^5.1.5",
     "axios": "^0.19.0",
     "react": "^16.9.0",
