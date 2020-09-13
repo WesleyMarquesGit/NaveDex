@@ -1,30 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import moment from 'moment'
 
 import Container from 'components/Container'
 import Input from 'components/Input'
 import Button from 'components/Button'
 import Text from 'components/Text'
 import Header from 'components/Header'
-import Image from 'components/Image'
 
 import { updateNaver, showNaver } from 'services/navers'
 import { naverSchema } from 'helpers/yup-schemas'
 
 const EditNaver = ({ match: { params } }) => {
   const history = useHistory()
-  const [naver, setNaver] = useState({})
+
+  const { register, handleSubmit, errors, formState, setValue } = useForm({
+    validationSchema: naverSchema
+  })
 
   useEffect(() => {
     const fetchNavers = async () => {
       try {
-        const data = await showNaver(params.id)
-        setNaver(data)
-        Object.keys(data).forEach(item => {
-          setValue(item, data[item])
-        })
+        const { name, job_role, birthdate, admission_date, project, url } = await showNaver(params.id)
+
+        setValue('name', name)
+        setValue('job_role', job_role)
+        setValue('birthdate', moment(birthdate).format('YYYY-MM-DD'))
+        setValue('admission_date', moment(admission_date).format('YYYY-MM-DD'))
+        setValue('project', project)
+        setValue('url', url)
       } catch (err) {
         console.log(err)
       }
@@ -32,15 +39,16 @@ const EditNaver = ({ match: { params } }) => {
     fetchNavers()
   }, [params])
 
-  const { register, handleSubmit, errors, formState, setValue } = useForm({
-    validationSchema: naverSchema
-  })
-
   const onSubmit = async values => {
+    const formatedBirthdate = moment(values.birthdate).format('DD/MM/YYYY')
+    const formatedAdmissionDate = moment(values.admission_date).format('DD/MM/YYYY')
+    const data = { ...values, birthdate: formatedBirthdate, admission_date: formatedAdmissionDate }
     try {
-      await updateNaver(naver.id, values)
+      await updateNaver(params.id, data)
       history.push('/home')
+      toast.success('Editado com sucesso!')
     } catch (err) {
+      toast.error(err.response.data.message)
       console.log(err)
     }
   }
@@ -60,6 +68,7 @@ const EditNaver = ({ match: { params } }) => {
             error={errors.job_role?.message}
           />
           <Input
+            type='date'
             placeholder='DD/MM/YYYY'
             name='birthdate'
             label='Data de Nascimento'
@@ -67,6 +76,7 @@ const EditNaver = ({ match: { params } }) => {
             error={errors.birthdate?.message}
           />
           <Input
+            type='date'
             placeholder='DD/MM/YYYY'
             name='admission_date'
             label='Data de Admissão'

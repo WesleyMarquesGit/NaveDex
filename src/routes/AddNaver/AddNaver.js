@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
+import moment from 'moment'
+import { toast } from 'react-toastify'
 
 import Container from 'components/Container'
 import Input from 'components/Input'
@@ -17,12 +19,18 @@ const AddNaver = () => {
 
   const { register, handleSubmit, errors, formState } = useForm({ validationSchema: naverSchema })
 
-  const onSubmit = async (...values) => {
+  const onSubmit = async values => {
+    const formatedBirthdate = moment(values.birthdate).format('DD/MM/YYYY')
+    const formatedAdmissionDate = moment(values.admission_date).format('DD/MM/YYYY')
+    const data = { ...values, birthdate: formatedBirthdate, admission_date: formatedAdmissionDate }
+
     try {
-      await createNaver(values)
+      await createNaver(data)
+      toast.success('Naver adicionado com sucesso!')
       history.push('/home')
     } catch (err) {
-      console.log(err)
+      toast.error(err.response.data.message)
+      console.log({ err })
     }
   }
 

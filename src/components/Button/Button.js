@@ -16,7 +16,7 @@ ButtonComponent.defaultProps = {
   width: 'regular',
   height: 'small',
   borderRadius: 4,
-  color: '#F2F2F2'
+  color: 'white'
 }
 
 ButtonComponent.propTypes = {

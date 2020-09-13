@@ -1,5 +1,4 @@
 import * as yup from 'yup'
-import { YoutubeSearchedFor } from '@styled-icons/material-sharp'
 
 yup.setLocale({
   mixed: {

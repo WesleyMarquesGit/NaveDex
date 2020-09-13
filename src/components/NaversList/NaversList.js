@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Delete, Edit } from '@styled-icons/material-sharp'
 import { useHistory } from 'react-router-dom'
 
 import Button from 'components/Button'
-import Container from 'components/Container'
 import Column from 'components/Column'
 import Row from 'components/Row'
 import Text from 'components/Text'
@@ -12,8 +11,9 @@ import Modal from 'components/Modal'
 import CloseIcon from 'components/Icons/CloseIcon'
 
 import { showNaver, deleteNaver } from 'services/navers'
+import { toast } from 'react-toastify'
 
-const NaversListComponent = ({ navers, showSucess }) => {
+const NaversListComponent = ({ navers, handleRenderList }) => {
   const history = useHistory()
   const [isExpandedCard, setExpandedCard] = useState(false)
   const [selectedNaver, setselectedNaver] = useState({})
@@ -34,8 +34,10 @@ const NaversListComponent = ({ navers, showSucess }) => {
       await deleteNaver(id)
       setConfirm(false)
       setExpandedCard(false)
-      showSucess()
+      handleRenderList()
+      toast.success('Deletado com sucesso!')
     } catch (err) {
+      toast.error(err.response.data.message)
       console.log(err)
     }
   }

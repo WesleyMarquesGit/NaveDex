@@ -7,18 +7,14 @@ import Column from 'components/Column'
 import Row from 'components/Row'
 import Text from 'components/Text'
 import Header from 'components/Header'
-import Modal from 'components/Modal'
 import NaversList from 'components/NaversList'
 
 import { getNavers } from 'services/navers'
 
 const Home = () => {
   const [navers, setNavers] = useState([])
-  const [alert, setAlert] = useState(false)
-  const [renderList, setRenderList] = useState({
-    state: true,
-    message: 'Oculta Navers'
-  })
+  const [renderList, setRenderList] = useState(false)
+  const [showList, setShowList] = useState({ state: true, message: 'Oculta' })
 
   const history = useHistory()
 
@@ -27,27 +23,28 @@ const Home = () => {
       try {
         const data = await getNavers()
         setNavers(data)
+        setRenderList(false)
       } catch (err) {
         console.log(err)
       }
     }
     fetchNavers()
-  }, [alert])
+  }, [renderList])
 
   const showNavers = () => {
-    renderList.state
-      ? setRenderList({
+    showList.state
+      ? setShowList({
           state: false,
-          message: 'Mostra Navers'
+          message: 'Mostrar'
         })
-      : setRenderList({
+      : setShowList({
           state: true,
-          message: 'Oculta Navers'
+          message: 'Ocultar'
         })
   }
 
-  const showSucess = () => {
-    setAlert(true)
+  const handleRenderList = () => {
+    setRenderList(true)
   }
 
   return (
@@ -56,30 +53,19 @@ const Home = () => {
         <Header />
         <Column>
           <Row justifyContent='space-between'>
-            <Text>Navers</Text>
-            <Button bg='#c6c6c6' onClick={showNavers}>
-              {renderList.message}
+            <Text width='regular' variant='big'>
+              Navers
+            </Text>
+            <Button w='30px' bg='#c6c6c6' onClick={showNavers}>
+              {showList.message}
             </Button>
             <Button bg='blueviolet' onClick={() => history.push('/add')}>
               Adicionar Naver
             </Button>
           </Row>
-          {renderList.state && <NaversList navers={navers} showSucess={showSucess} />}
+          {showList.state && <NaversList navers={navers} handleRenderList={handleRenderList} />}
         </Column>
       </Column>
-
-      {alert && (
-        <Modal>
-          <Column width='500px' height='200px' bg='#FFF'>
-            <Row>
-              <Button onClick={() => setAlert(false)} bg='#c2c2c2'>
-                cancelar
-              </Button>
-              <Text>Excluido com sucesso</Text>
-            </Row>
-          </Column>
-        </Modal>
-      )}
     </Container>
   )
 }
