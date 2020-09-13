@@ -18,9 +18,18 @@ const getProps = ({ backgroundImage, ...props }) => {
   }
 }
 
-const ImageComponent = props => <Image {...getProps(props)} />
+const ImageComponent = ({ cursor = 'default', ...props }) => <Image cursor={cursor} {...getProps(props)} />
 
-const Image = styled.img(background, space, layout, color, border)
+const Image = styled.img(
+  background,
+  space,
+  layout,
+  color,
+  border,
+  ({ cursor }) => `
+    cursor: ${cursor};
+  `
+)
 
 ImageComponent.propTypes = {
   backgroundImage: PropTypes.string
