@@ -13,6 +13,7 @@ import Header from 'components/Header'
 
 import { updateNaver, showNaver } from 'services/navers'
 import { naverSchema } from 'helpers/yup-schemas'
+import { formatedDate } from 'helpers/formatDate'
 
 const EditNaver = ({ match: { params } }) => {
   const history = useHistory()
@@ -40,10 +41,8 @@ const EditNaver = ({ match: { params } }) => {
   }, [params])
 
   const onSubmit = async values => {
-    const formatedBirthdate = moment(values.birthdate).format('DD/MM/YYYY')
-    const formatedAdmissionDate = moment(values.admission_date).format('DD/MM/YYYY')
-    const data = { ...values, birthdate: formatedBirthdate, admission_date: formatedAdmissionDate }
     try {
+      const data = formatedDate(values)
       await updateNaver(params.id, data)
       history.push('/home')
       toast.success('Editado com sucesso!')
