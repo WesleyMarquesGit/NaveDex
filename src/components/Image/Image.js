@@ -27,7 +27,7 @@ const Image = styled.img(
   color,
   border,
   ({ cursor }) => `
-    cursor: ${cursor};
+    cursor: ${cursor}; 
   `
 )
 

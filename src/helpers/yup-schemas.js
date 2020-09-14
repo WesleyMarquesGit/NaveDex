@@ -14,7 +14,10 @@ export const loginSchema = yup.object().shape({
 export const naverSchema = yup.object().shape({
   name: yup.string().required(),
   job_role: yup.string().required(),
-  birthdate: yup.string().required(),
+  birthdate: yup
+    .string()
+    .required()
+    .test('validaData', 'Data superior ao dia atual', value => {}),
   admission_date: yup.string().required(),
   project: yup.string().required(),
   url: yup.string().required()
