@@ -18,8 +18,26 @@ const Button = styled.button(
   border,
   variant({
     variants: {
+      delete: {
+        bg: '#c6c6c6',
+        transition: '1s',
+        '&:hover': {
+          bg: 'red'
+        }
+      },
       primary: {
-        bg: 'red'
+        bg: 'blueviolet',
+        transition: '1s',
+        '&:hover': {
+          bg: '#af7cdf'
+        }
+      },
+      secondary: {
+        bg: '#c6c6c6',
+        transition: '1s',
+        '&:hover': {
+          bg: 'blueviolet'
+        }
       }
     }
   })
