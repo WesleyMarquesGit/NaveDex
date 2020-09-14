@@ -62,10 +62,10 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
             {job_role}
           </Text>
           <Row justifyContent='center'>
-            <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => setConfirm(id)}>
+            <Button variant='delete' width='50px' m='1px' onClick={() => setConfirm(id)}>
               <Delete size='24' />
             </Button>
-            <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => history.push(`/edit/${id}`)}>
+            <Button variant='secondary' width='50px' m='1px' onClick={() => history.push(`/edit/${id}`)}>
               <Edit size='24' />
             </Button>
           </Row>
@@ -96,10 +96,15 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
               </Text>
               <Text>{selectedNaver.project}</Text>
               <Row height='100%' alignItems='flex-end'>
-                <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => setConfirm(selectedNaver.id)}>
+                <Button variant='delete' width='50px' m='1px' onClick={() => setConfirm(selectedNaver.id)}>
                   <Delete size='24' />
                 </Button>
-                <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => history.push(`/edit/${selectedNaver.id}`)}>
+                <Button
+                  variant='secondary'
+                  width='50px'
+                  m='1px'
+                  onClick={() => history.push(`/edit/${selectedNaver.id}`)}
+                >
                   <Edit size='24' />
                 </Button>
               </Row>

@@ -96,7 +96,7 @@ const EditNaver = ({ match: { params } }) => {
             register={register}
             error={errors.url?.message}
           />
-          <Button bg='blueviolet' isLoading={formState.isSubmitting}>
+          <Button variant='primary' isLoading={formState.isSubmitting}>
             Salvar
           </Button>
         </FormInputs>
