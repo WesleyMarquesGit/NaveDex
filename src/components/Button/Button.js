@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { space, layout, typography, color, border } from 'styled-system'
+import { space, layout, typography, color, border, variant } from 'styled-system'
 import propTypes from '@styled-system/prop-types'
 
 import Loader from 'components/Loader'
@@ -10,7 +10,20 @@ const ButtonComponent = ({ children, isLoading, ...props }) => (
   <Button {...props}>{isLoading ? <Loader /> : children}</Button>
 )
 
-const Button = styled.button(space, layout, typography, color, border)
+const Button = styled.button(
+  space,
+  layout,
+  typography,
+  color,
+  border,
+  variant({
+    variants: {
+      primary: {
+        bg: 'red'
+      }
+    }
+  })
+)
 
 ButtonComponent.defaultProps = {
   width: 'regular',

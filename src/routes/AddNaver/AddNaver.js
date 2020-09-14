@@ -7,8 +7,8 @@ import { toast } from 'react-toastify'
 import Container from 'components/Container'
 import Input from 'components/Input'
 import Button from 'components/Button'
-import Text from 'components/Text'
 import Header from 'components/Header'
+import BackLink from 'components/BackLink'
 
 import { createNaver } from 'services/navers'
 import { naverSchema } from 'helpers/yup-schemas'
@@ -23,8 +23,8 @@ const AddNaver = () => {
     try {
       const data = formatedDate(values)
       await createNaver(data)
-      toast.success('Naver adicionado com sucesso!')
       history.push('/home')
+      toast.success('Naver adicionado com sucesso!')
     } catch (err) {
       toast.error(err.response.data.message)
       console.log({ err })
@@ -35,7 +35,7 @@ const AddNaver = () => {
     <Container display='flex'>
       <Header />
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Text marginBottom='30px'>ADICIONAR NAVER</Text>
+        <BackLink>ADICIONAR NAVER</BackLink>
         <FormInputs>
           <Input placeholder='Nome' name='name' label='Nome' register={register} error={errors.name?.message} />
           <Input

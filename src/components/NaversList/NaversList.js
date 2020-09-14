@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Delete, Edit } from '@styled-icons/material-sharp'
 import { useHistory } from 'react-router-dom'
+import moment from 'moment'
 
 import Button from 'components/Button'
 import Column from 'components/Column'
@@ -44,7 +45,7 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
   return (
     <Row display='flex' flexWrap='wrap' justifyContent='space-between' mt='25px'>
       {navers.map(({ id, url, name, job_role }) => (
-        <Column key={id} bg='#f9f9f9' borderRadius='5px' p='10px' m='10px'>
+        <Column key={id} bg='#e8e8e8' borderRadius='5px' p='10px' m='10px 5px'>
           <Image
             cursor='pointer'
             onClick={() => handleExpandedCard(id)}
@@ -54,10 +55,12 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
             borderRadius='50%'
             m='10px'
           />
-          <Text textAlign='center' fontWeight='bold'>
+          <Text textAlign='center' fontWeight='bold' color='#2d2d2d'>
             {name}
           </Text>
-          <Text textAlign='center'>{job_role}</Text>
+          <Text textAlign='center' lineHeight='24px' mb='5px'>
+            {job_role}
+          </Text>
           <Row justifyContent='center'>
             <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => setConfirm(id)}>
               <Delete size='24' />
@@ -70,24 +73,36 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
       ))}
       {isExpandedCard && (
         <Modal>
-          <Row bg='white' display='flex'>
-            <Image width='350px' height='400px' backgroundImage={selectedNaver.url} />
-            <Column width='350px' height='400px'>
-              <CloseIcon size='24' onClick={() => setExpandedCard(false)} />
-              <Text>{selectedNaver.name}</Text>
-              <Text>{selectedNaver.job_role}</Text>
-              <Text>Idade</Text>
-              <Text>{selectedNaver.birthdate}</Text>
-              <Text>Tempo de empresa</Text>
-              <Text>{selectedNaver.admission_date}</Text>
-              <Text>Projetos que participou</Text>
+          <Row bg='white' borderRadius='4px' flexDirection={['column', 'row']} position='absolute' flexWrap='wrap'>
+            <CloseIcon size='24' onClick={() => setExpandedCard(false)} />
+            <Column width='350px' height='350px' minWidth='200px' maxWidth='350px'>
+              <Image width='100%' height='100%' backgroundImage={selectedNaver.url} />
+            </Column>
+            <Column display='flex' p='25px'>
+              <Text fontWeight='600' variant='big' mb='5px' color='#2d2d2d'>
+                {selectedNaver.name}
+              </Text>
+              <Text mb='15px'>{selectedNaver.job_role}</Text>
+              <Text fontWeight='600' variant='regular' mb='3px' color='#2d2d2d'>
+                Idade
+              </Text>
+              <Text mb='10px'>{moment(selectedNaver.birthdate).fromNow(true).split(' ')[0]} anos</Text>
+              <Text fontWeight='600' variant='regular' color='#2d2d2d'>
+                Tempo de empresa
+              </Text>
+              <Text mb='10px'>{moment(selectedNaver.admission_date).fromNow(true).split(' ')[0]} anos</Text>
+              <Text fontWeight='600' variant='regular' mb='2px' color='#2d2d2d'>
+                Projetos que participou
+              </Text>
               <Text>{selectedNaver.project}</Text>
-              <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => setConfirm(selectedNaver.id)}>
-                <Delete size='24' />
-              </Button>
-              <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => history.push(`/edit/${selectedNaver.id}`)}>
-                <Edit size='24' />
-              </Button>
+              <Row height='100%' alignItems='flex-end'>
+                <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => setConfirm(selectedNaver.id)}>
+                  <Delete size='24' />
+                </Button>
+                <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => history.push(`/edit/${selectedNaver.id}`)}>
+                  <Edit size='24' />
+                </Button>
+              </Row>
             </Column>
           </Row>
         </Modal>
@@ -95,13 +110,16 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
 
       {confirm && (
         <Modal>
-          <Column width='500px' height='200px' bg='#FFF'>
-            <Text>Tem certeza que quer apagar este naver?</Text>
-            <Row alignItems='flex-end'>
+          <Column display='flex' width='500px' height='200px' bg='#FFF' borderRadius='4px' p='20px'>
+            <Text fontWeight='600' fontSize='24px' lineHeight='36px'>
+              Excluir Naver
+            </Text>
+            <Text m='25px 0px'>Tem certeza que quer apagar este naver?</Text>
+            <Row>
               <Button onClick={() => setConfirm(false)} bg='#c2c2c2'>
                 cancelar
               </Button>
-              <Button bg='blueviolet' onClick={() => handleDelete(confirm)}>
+              <Button ml='10px' bg='blueviolet' onClick={() => handleDelete(confirm)}>
                 confirmar
               </Button>
             </Row>

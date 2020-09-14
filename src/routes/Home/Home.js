@@ -14,7 +14,7 @@ import { getNavers } from 'services/navers'
 const Home = () => {
   const [navers, setNavers] = useState([])
   const [renderList, setRenderList] = useState(false)
-  const [showList, setShowList] = useState({ state: true, message: 'Oculta' })
+  const [showList, setShowList] = useState('Ocultar')
 
   const history = useHistory()
 
@@ -32,19 +32,7 @@ const Home = () => {
   }, [renderList])
 
   const showNavers = () => {
-    showList.state
-      ? setShowList({
-          state: false,
-          message: 'Mostrar'
-        })
-      : setShowList({
-          state: true,
-          message: 'Ocultar'
-        })
-  }
-
-  const handleRenderList = () => {
-    setRenderList(true)
+    setShowList(showList => (showList === 'Ocultar' ? 'Mostrar' : 'Ocultar'))
   }
 
   return (
@@ -52,18 +40,18 @@ const Home = () => {
       <Column display='flex'>
         <Header />
         <Column>
-          <Row justifyContent='space-between'>
-            <Text width='regular' variant='big'>
+          <Row justifyContent='space-between' alignItems='center'>
+            <Text color='#c6c6c6' fontSize='40px' fontWeight='600' lineHeight='48px'>
               Navers
             </Text>
-            <Button w='30px' bg='#c6c6c6' onClick={showNavers}>
-              {showList.message}
+            <Button w='30px' variant='primary' onClick={showNavers}>
+              {showList}
             </Button>
             <Button bg='blueviolet' onClick={() => history.push('/add')}>
               Adicionar Naver
             </Button>
           </Row>
-          {showList.state && <NaversList navers={navers} handleRenderList={handleRenderList} />}
+          {showList === 'Ocultar' && <NaversList navers={navers} handleRenderList={() => setRenderList(true)} />}
         </Column>
       </Column>
     </Container>
