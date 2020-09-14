@@ -17,12 +17,19 @@ export const naverSchema = yup.object().shape({
   birthdate: yup
     .string()
     .required()
-    .test('validaData', 'Data superior ao dia atual', value => {
+    .test('validateDate', 'Data superior ao dia atual', value => {
       const selectedDay = Number(value.split('-')[2])
       const today = new Date()
       return selectedDay > today.getDate() ? false : true
     }),
-  admission_date: yup.string().required(),
+  admission_date: yup
+    .string()
+    .required()
+    .test('validateDate', 'Data superior ao dia atual', value => {
+      const selectedDay = Number(value.split('-')[2])
+      const today = new Date()
+      return selectedDay > today.getDate() ? false : true
+    }),
   project: yup.string().required(),
   url: yup.string().required()
 })
