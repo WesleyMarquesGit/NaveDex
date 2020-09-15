@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Delete, Edit } from '@styled-icons/material-sharp'
 import { useHistory } from 'react-router-dom'
-import moment from 'moment'
 
 import Button from 'components/Button'
 import Column from 'components/Column'
@@ -13,6 +12,7 @@ import CloseIcon from 'components/Icons/CloseIcon'
 
 import { showNaver, deleteNaver } from 'services/navers'
 import { toast } from 'react-toastify'
+import { calcAge, calcDate } from 'helpers/formatDate'
 
 const NaversListComponent = ({ navers, handleRenderList }) => {
   const history = useHistory()
@@ -42,10 +42,11 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
       console.log(err)
     }
   }
+
   return (
-    <Row display='flex' flexWrap='wrap' justifyContent='space-between' mt='25px'>
+    <Row display='flex' flexWrap='wrap'>
       {navers.map(({ id, url, name, job_role }) => (
-        <Column key={id} bg='#e8e8e8' borderRadius='5px' p='10px' m='10px 5px'>
+        <Column key={id} bg='#e8e8e8' borderRadius='5px' p='10px' m='30px 60px 0px 0px'>
           <Image
             cursor='pointer'
             onClick={() => handleExpandedCard(id)}
@@ -86,11 +87,11 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
               <Text fontWeight='600' variant='regular' mb='3px' color='#2d2d2d'>
                 Idade
               </Text>
-              <Text mb='10px'>{moment(selectedNaver.birthdate).fromNow(true).split(' ')[0]} anos</Text>
+              <Text mb='10px'>{calcAge(selectedNaver.birthdate)}</Text>
               <Text fontWeight='600' variant='regular' color='#2d2d2d'>
                 Tempo de empresa
               </Text>
-              <Text mb='10px'>{moment(selectedNaver.admission_date).fromNow(true).split(' ')[0]} anos</Text>
+              <Text mb='10px'>{calcDate(selectedNaver.admission_date)}</Text>
               <Text fontWeight='600' variant='regular' mb='2px' color='#2d2d2d'>
                 Projetos que participou
               </Text>

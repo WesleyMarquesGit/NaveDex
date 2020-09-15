@@ -1,4 +1,7 @@
 import * as yup from 'yup'
+import moment from 'moment'
+
+const MIN_AGE = 18
 
 yup.setLocale({
   mixed: {
@@ -18,17 +21,20 @@ export const naverSchema = yup.object().shape({
     .string()
     .required()
     .test('validateDate', 'Data superior ao dia atual', value => {
-      const selectedDay = Number(value.split('-')[2])
-      const today = new Date()
-      return selectedDay > today.getDate() ? false : true
+      const now = moment()
+      return moment(value).isBefore(now)
+    })
+    .test('validadeAge', 'Deve ter mais de 18 anos', value => {
+      const subDate = moment().subtract(MIN_AGE, 'years')
+      const minDate = moment(subDate).format('YYYY-MM-DD')
+      return moment(value).isBefore(minDate)
     }),
   admission_date: yup
     .string()
     .required()
     .test('validateDate', 'Data superior ao dia atual', value => {
-      const selectedDay = Number(value.split('-')[2])
-      const today = new Date()
-      return selectedDay > today.getDate() ? false : true
+      const now = moment()
+      return moment(value).isBefore(now)
     }),
   project: yup.string().required(),
   url: yup.string().required()

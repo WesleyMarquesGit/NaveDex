@@ -45,7 +45,7 @@ const EditNaver = ({ match: { params } }) => {
       const data = formatedDate(values)
       await updateNaver(params.id, data)
       history.push('/home')
-      toast.success('Editado com sucesso!')
+      toast.success(`${data.name} editado com sucesso!`)
     } catch (err) {
       toast.error(err.response.data.message)
       console.log(err)

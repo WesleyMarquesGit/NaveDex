@@ -44,10 +44,10 @@ const Home = () => {
             <Text color='#c6c6c6' fontSize='40px' fontWeight='600' lineHeight='48px'>
               Navers
             </Text>
-            <Button width='100px' variant='secondary' onClick={showNavers}>
+            <Button width='100px' m='0 10px' p='2px' variant='secondary' onClick={showNavers}>
               {showList}
             </Button>
-            <Button variant='primary' onClick={() => history.push('/add')}>
+            <Button variant='primary' p='2px' onClick={() => history.push('/add')}>
               Adicionar Naver
             </Button>
           </Row>
