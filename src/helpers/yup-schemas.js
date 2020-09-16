@@ -24,7 +24,7 @@ export const naverSchema = yup.object().shape({
       const now = moment()
       return moment(value).isBefore(now)
     })
-    .test('validadeAge', 'Deve ter mais de 18 anos', value => {
+    .test('validadeAge', `Deve ter no minimo ${MIN_AGE} anos`, value => {
       const subDate = moment().subtract(MIN_AGE, 'years')
       const minDate = moment(subDate).format('YYYY-MM-DD')
       return moment(value).isBefore(minDate)
