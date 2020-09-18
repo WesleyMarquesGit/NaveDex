@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { space, layout, color, flexbox, border, shadow, position } from 'styled-system'
 import propTypes from '@styled-system/prop-types'
 
-import { MEDIADESKTOP } from 'helpers'
+import { MEDIADESKTOP, MEDIAMOBILE } from 'helpers'
 
 const RowComponent = styled.div(
   {
@@ -28,16 +28,15 @@ RowComponent.propTypes = {
 }
 
 export const RowDesktop = styled(RowComponent)`
-  display: none;
   @media (min-width: ${MEDIADESKTOP}px) {
     display: flex;
   }
 `
 
 export const RowMobile = styled(RowComponent)`
-  display: flex;
-  @media (min-width: ${MEDIADESKTOP}px) {
-    display: none;
+  @media (min-width: ${MEDIAMOBILE}px) {
+    background-color: red;
+    justify-content: space-between;
   }
 `
 

@@ -36,7 +36,7 @@ const ExpandedCardComponent = ({ selectedNaver, setConfirm, setExpandedCard }) =
             Projetos que participou
           </Text>
           <Text>{selectedNaver.project}</Text>
-          <Row height='100%' alignItems='flex-end'>
+          <Row height='100%' alignItems='flex-end' mb='10px'>
             <Button variant='delete' width='50px' m='1px' onClick={() => setConfirm(selectedNaver.id)}>
               <Delete size='24' />
             </Button>

@@ -3,6 +3,7 @@ import { Delete, Edit } from '@styled-icons/material-sharp'
 import { useHistory } from 'react-router-dom'
 
 import Button from 'components/Button'
+import { RowMobile } from 'components/Row'
 import Column from 'components/Column'
 import Row from 'components/Row'
 import Text from 'components/Text'
@@ -43,9 +44,9 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
   }
 
   return (
-    <Row display='flex' flexWrap='wrap'>
+    <Row display='flex' flexWrap='wrap' justifyContent={['center', 'space-between']}>
       {navers.map(({ id, url, name, job_role }) => (
-        <Column key={id} bg='#e8e8e8' borderRadius='5px' p='10px' m='30px 60px 0px 0px'>
+        <Column key={id} bg='#e8e8e8' borderRadius='5px' p='30px' mt='30px'>
           <Image
             cursor='pointer'
             onClick={() => handleExpandedCard(id)}
@@ -53,7 +54,7 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
             width='200px'
             height='200px'
             borderRadius='50%'
-            m='10px'
+            mb='10px'
           />
           <Text textAlign='center' fontWeight='bold' color='#2d2d2d'>
             {name}
@@ -71,6 +72,9 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
           </Row>
         </Column>
       ))}
+      <Column width='260px' mt='30px' />
+      <Column width='260px' mt='30px' />
+      <Column width='260px' mt='30px' />
       {isExpandedCard && (
         <ExpandedCard selectedNaver={selectedNaver} setExpandedCard={setExpandedCard} setConfirm={setConfirm} />
       )}

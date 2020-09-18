@@ -5,7 +5,7 @@ import Link from 'components/Link'
 import Row from 'components/Row'
 import Text from 'components/Text'
 
-const BackLinkComponent = ({ children }) => {
+const BackLinkComponent = ({ children, ...props }) => {
   return (
     <Link to='/home' textDecoration='none' color='#2d2d2d'>
       <Row>

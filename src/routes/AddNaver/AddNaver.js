@@ -9,6 +9,7 @@ import Input from 'components/Input'
 import Button from 'components/Button'
 import Header from 'components/Header'
 import BackLink from 'components/BackLink'
+import Row from 'components/Row'
 
 import { createNaver } from 'services/navers'
 import { naverSchema } from 'helpers/yup-schemas'
@@ -34,9 +35,12 @@ const AddNaver = () => {
   return (
     <Container display='flex'>
       <Header />
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <BackLink>ADICIONAR NAVER</BackLink>
-        <FormInputs>
+      <Row display='flex' flex-wrap='wrap' alignSelf='center' justifyContent={['center', 'space-between']} width='35%'>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Row width='100%'>
+            <BackLink>ADICIONAR NAVER</BackLink>
+          </Row>
+
           <Input placeholder='Nome' name='name' label='Nome' register={register} error={errors.name?.message} />
           <Input
             placeholder='Cargo'
@@ -78,21 +82,13 @@ const AddNaver = () => {
           <Button variant='primary' isLoading={formState.isSubmitting}>
             Salvar
           </Button>
-        </FormInputs>
-      </Form>
+        </Form>
+      </Row>
     </Container>
   )
 }
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  max-width: 650px;
-  min-width: 300px;
-  align-self: center;
-`
-
-const FormInputs = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
