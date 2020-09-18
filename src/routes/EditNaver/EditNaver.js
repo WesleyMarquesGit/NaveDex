@@ -8,8 +8,8 @@ import moment from 'moment'
 import Container from 'components/Container'
 import Input from 'components/Input'
 import Button from 'components/Button'
-import Text from 'components/Text'
 import Header from 'components/Header'
+import BackLink from 'components/BackLink'
 
 import { updateNaver, showNaver } from 'services/navers'
 import { naverSchema } from 'helpers/yup-schemas'
@@ -45,7 +45,7 @@ const EditNaver = ({ match: { params } }) => {
       const data = formatedDate(values)
       await updateNaver(params.id, data)
       history.push('/home')
-      toast.success('Editado com sucesso!')
+      toast.success(`${data.name} editado com sucesso!`)
     } catch (err) {
       toast.error(err.response.data.message)
       console.log(err)
@@ -56,7 +56,7 @@ const EditNaver = ({ match: { params } }) => {
     <Container display='flex'>
       <Header />
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Text marginBottom='30px'>EDITAR NAVER</Text>
+        <BackLink>EDITAR NAVER</BackLink>
         <FormInputs>
           <Input name='name' label='Nome' register={register} error={errors.name?.message} />
           <Input
@@ -96,7 +96,7 @@ const EditNaver = ({ match: { params } }) => {
             register={register}
             error={errors.url?.message}
           />
-          <Button bg='blueviolet' isLoading={formState.isSubmitting}>
+          <Button variant='primary' isLoading={formState.isSubmitting}>
             Salvar
           </Button>
         </FormInputs>

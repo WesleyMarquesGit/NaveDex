@@ -3,12 +3,13 @@ import { Delete, Edit } from '@styled-icons/material-sharp'
 import { useHistory } from 'react-router-dom'
 
 import Button from 'components/Button'
+import { RowMobile } from 'components/Row'
 import Column from 'components/Column'
 import Row from 'components/Row'
 import Text from 'components/Text'
 import Image from 'components/Image'
-import Modal from 'components/Modal'
-import CloseIcon from 'components/Icons/CloseIcon'
+import ExpandedCard from 'components/ExpandedCard'
+import Confirm from 'components/Confirm'
 
 import { showNaver, deleteNaver } from 'services/navers'
 import { toast } from 'react-toastify'
@@ -41,10 +42,11 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
       console.log(err)
     }
   }
+
   return (
-    <Row display='flex' flexWrap='wrap' justifyContent='space-between' mt='25px'>
+    <Row display='flex' flexWrap='wrap' justifyContent={['center', 'space-between']}>
       {navers.map(({ id, url, name, job_role }) => (
-        <Column key={id} bg='#f9f9f9' borderRadius='5px' p='10px' m='10px'>
+        <Column key={id} bg='#e8e8e8' borderRadius='5px' p='30px' mt='30px'>
           <Image
             cursor='pointer'
             onClick={() => handleExpandedCard(id)}
@@ -52,62 +54,31 @@ const NaversListComponent = ({ navers, handleRenderList }) => {
             width='200px'
             height='200px'
             borderRadius='50%'
-            m='10px'
+            mb='10px'
           />
-          <Text textAlign='center' fontWeight='bold'>
+          <Text textAlign='center' fontWeight='bold' color='#2d2d2d'>
             {name}
           </Text>
-          <Text textAlign='center'>{job_role}</Text>
+          <Text textAlign='center' lineHeight='24px' mb='5px'>
+            {job_role}
+          </Text>
           <Row justifyContent='center'>
-            <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => setConfirm(id)}>
+            <Button variant='delete' width='50px' m='1px' onClick={() => setConfirm(id)}>
               <Delete size='24' />
             </Button>
-            <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => history.push(`/edit/${id}`)}>
+            <Button variant='secondary' width='50px' m='1px' onClick={() => history.push(`/edit/${id}`)}>
               <Edit size='24' />
             </Button>
           </Row>
         </Column>
       ))}
+      <Column width='260px' mt='30px' />
+      <Column width='260px' mt='30px' />
+      <Column width='260px' mt='30px' />
       {isExpandedCard && (
-        <Modal>
-          <Row bg='white' display='flex'>
-            <Image width='350px' height='400px' backgroundImage={selectedNaver.url} />
-            <Column width='350px' height='400px'>
-              <CloseIcon size='24' onClick={() => setExpandedCard(false)} />
-              <Text>{selectedNaver.name}</Text>
-              <Text>{selectedNaver.job_role}</Text>
-              <Text>Idade</Text>
-              <Text>{selectedNaver.birthdate}</Text>
-              <Text>Tempo de empresa</Text>
-              <Text>{selectedNaver.admission_date}</Text>
-              <Text>Projetos que participou</Text>
-              <Text>{selectedNaver.project}</Text>
-              <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => setConfirm(selectedNaver.id)}>
-                <Delete size='24' />
-              </Button>
-              <Button bg='#c6c6c6' width='50px' m='1px' onClick={() => history.push(`/edit/${selectedNaver.id}`)}>
-                <Edit size='24' />
-              </Button>
-            </Column>
-          </Row>
-        </Modal>
+        <ExpandedCard selectedNaver={selectedNaver} setExpandedCard={setExpandedCard} setConfirm={setConfirm} />
       )}
-
-      {confirm && (
-        <Modal>
-          <Column width='500px' height='200px' bg='#FFF'>
-            <Text>Tem certeza que quer apagar este naver?</Text>
-            <Row alignItems='flex-end'>
-              <Button onClick={() => setConfirm(false)} bg='#c2c2c2'>
-                cancelar
-              </Button>
-              <Button bg='blueviolet' onClick={() => handleDelete(confirm)}>
-                confirmar
-              </Button>
-            </Row>
-          </Column>
-        </Modal>
-      )}
+      {confirm && <Confirm confirm={confirm} setConfirm={setConfirm} handleDelete={handleDelete} />}
     </Row>
   )
 }

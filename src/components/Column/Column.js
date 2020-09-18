@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import Row from 'components/Row'
 
-import { MEDIADESKTOP } from 'helpers'
+import { MEDIADESKTOP, MEDIAMOBILE } from 'helpers'
 
 const ColumnComponent = props => <Row flexDirection='column' {...props} />
 
@@ -16,8 +16,8 @@ export const ColumnDesktop = styled(ColumnComponent)`
 
 export const ColumnMobile = styled(ColumnComponent)`
   display: flex;
-  @media (min-width: ${MEDIADESKTOP}px) {
-    display: none;
+  @media (min-width: ${MEDIAMOBILE}px) {
+    background-color: red;
   }
 `
 
